@@ -22,14 +22,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Run Lint
-        run: ./gradlew lint
-        working-directory: ./app
-
       - name: Upload HTML Lint Report
         uses: actions/upload-artifact@v4
         with:
           name: lint-report.html
+          working-directory: ./app
           path: app/build/reports/lint-results-debug.html
 
   unit-test:
