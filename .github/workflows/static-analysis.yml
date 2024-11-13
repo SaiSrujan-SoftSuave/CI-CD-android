@@ -21,19 +21,25 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v3
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Assemble Debug Build (optional)
+        run: ./gradlew assembleDebug
+
       - name: Run Lint
         run: ./gradlew lint
-      - name: Upload html test report
-        uses: actions/upload-artifact@v4
 
+      - name: Upload HTML Lint Report
+        uses: actions/upload-artifact@v4
         with:
-          name: lint.html
+          name: lint-report.html
           path: build/reports/lint-results-debug.html
+
   unit-test:
     needs: [ lint ]
     runs-on: ubuntu-latest
