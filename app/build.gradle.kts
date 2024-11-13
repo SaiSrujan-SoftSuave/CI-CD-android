@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.composecicdproject"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.composecicdproject"
@@ -47,6 +47,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    detekt {
+        config = files("/Users/softsuave/freeProjects/composeCICDProject/datekt.yml")
+    }
 }
 
 dependencies {
@@ -66,4 +69,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
 }

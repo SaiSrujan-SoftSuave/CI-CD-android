@@ -13,8 +13,36 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Upload html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint.html
+          path: app/build/reports/lint-results-debug.html
+  unit-test:
+    needs: [ lint ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_test_report
+          path: app/build/reports/tests/testDebugUnitTest/
+
   detekt:
     name: Detekt
+    needs: [ unit-test ]
     runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -33,6 +61,7 @@ jobs:
 
   spotless:
     name: Spotless
+    needs: [ Detekt ]
     runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job

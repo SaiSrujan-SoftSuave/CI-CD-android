@@ -1,10 +1,5 @@
 import com.diffplug.gradle.spotless.SpotlessPlugin
 import io.gitlab.arturbosch.detekt.DetektPlugin
-import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
-import org.jetbrains.kotlin.js.translate.context.Namer.kotlin
-
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 
 
 plugins {
@@ -12,6 +7,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.detekt)
     alias(libs.plugins.spotless)
+}
+detekt {
+    config = files("/Users/softsuave/freeProjects/composeCICDProject/datekt.yml")
 }
 
 configure(subprojects) {

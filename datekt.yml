@@ -1,0 +1,11 @@
+naming:
+  FunctionNaming:
+    active: false
+
+style:
+  NewLineAtEndOfFile:
+    active: false
+
+formatting:
+  MagicNumber:
+    active: false
