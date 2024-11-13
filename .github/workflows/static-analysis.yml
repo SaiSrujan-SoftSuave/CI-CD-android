@@ -24,11 +24,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Assemble Debug Build (optional)
-        run: ./gradlew assembleDebug
-        working-directory: ./app
-
       - name: Run Lint
         run: ./gradlew lint
         working-directory: ./app
