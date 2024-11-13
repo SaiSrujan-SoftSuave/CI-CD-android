@@ -15,9 +15,6 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./app
     steps:
       - name: Checkout the code
         uses: actions/checkout@v3
@@ -30,15 +27,17 @@ jobs:
 
       - name: Assemble Debug Build (optional)
         run: ./gradlew assembleDebug
+        working-directory: ./app
 
       - name: Run Lint
         run: ./gradlew lint
+        working-directory: ./app
 
       - name: Upload HTML Lint Report
         uses: actions/upload-artifact@v4
         with:
           name: lint-report.html
-          path: build/reports/lint-results-debug.html
+          path: app/build/reports/lint-results-debug.html
 
   unit-test:
     needs: [ lint ]
