@@ -20,16 +20,26 @@ jobs:
         working-directory: ./app
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Run Lint
+        run: ./gradlew lint
       - name: Upload html test report
         uses: actions/upload-artifact@v4
+
         with:
           name: lint.html
-          path: app/build/reports/lint-results-debug.html
+          path: build/reports/lint-results-debug.html
   unit-test:
     needs: [ lint ]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -44,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: unit_test_report
-          path: app/build/reports/tests/testDebugUnitTest/
+          path: build/reports/tests/testDebugUnitTest/
 
   detekt:
     name: Detekt
